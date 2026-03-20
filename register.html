@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Registration</title>
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <h1 class="title">Registration</h1>
+                <div>
+                    <form>
+                        <div>
+                            <label for="name">Name</label>
+                            <input id="name" name="name" type="text" />
+                        </div>
+                        <div>
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" />
+                        </div>
+                        <div>
+                            <label for="bdate">Date of Birth</label>
+                            <input id="bdate" name="bdate" type="date" />
+                        </div>
+                        <div>
+                            <label for="role">Role</label>
+                            <select id="role" name="role">
+                                <button>
+                                    <selectedcontent></selectedcontent>
+                                </button>
+                                <option>User</option>
+                                <option>Admin</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn--submit" type="submit">
+                                Register
+                            </button>
+                        </div>
+                    </form>
+                    <p class="register__back-to-login-text">
+                        Go back to <a href="index.html">Login</a>
+                    </p>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
