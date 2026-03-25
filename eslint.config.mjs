@@ -34,6 +34,12 @@ export default [
             'no-undef': 'error',
         },
     },
+    {
+        files: ['vite.config.js', 'eslint.config.mjs'],
+        languageOptions: {
+            globals: { ...globals.node },
+        },
+    },
     // Prettier (disables conflicting ESLint rules)
     eslintConfigPrettier,
 ];

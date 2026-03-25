@@ -85,6 +85,24 @@ option:checked {
     text-align: center;
 }
 
+/* LOGIN */
+.validation-msg,
+.error_message {
+    color: red;
+    font-weight: semi-bold;
+    font-size: 0.9em;
+    visibility: hidden;
+}
+
+.input.error {
+    border: 1px solid red;
+}
+
+.validation-msg.visible,
+.error_message.visible {
+    visibility: visible;
+}
+
 .login__registration-text,
 .register__back-to-login-text {
     text-align: center;
@@ -96,6 +114,7 @@ option:checked {
     }
 }
 
+/* DASHBOARD */
 .profile {
     margin: 0;
     padding: 0;

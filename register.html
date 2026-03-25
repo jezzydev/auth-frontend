@@ -12,31 +12,99 @@
             <div class="container">
                 <h1 class="title">Registration</h1>
                 <div>
-                    <form>
+                    <form id="registerForm">
+                        <p class="validation-msg"></p>
                         <div>
                             <label for="name">Name</label>
-                            <input id="name" name="name" type="text" />
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                aria-describedby="name-error"
+                                aria-invalid="false"
+                                required
+                            />
+                            <span
+                                id="name-error"
+                                class="error-message"
+                                role="alert"
+                            ></span>
                         </div>
                         <div>
                             <label for="email">Email</label>
-                            <input id="email" name="email" type="email" />
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                aria-describedby="email-error"
+                                aria-invalid="false"
+                                required
+                            />
+                            <span
+                                id="email-error"
+                                class="error-message"
+                                role="alert"
+                            ></span>
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                aria-describedby="password-error"
+                                aria-invalid="false"
+                                required
+                            />
+                            <span
+                                id="password-error"
+                                class="error-message"
+                                role="alert"
+                            ></span>
                         </div>
                         <div>
                             <label for="bdate">Date of Birth</label>
-                            <input id="bdate" name="bdate" type="date" />
+                            <input
+                                id="bdate"
+                                name="bdate"
+                                type="date"
+                                aria-describedby="bdate-error"
+                                aria-invalid="false"
+                                required
+                            />
+                            <span
+                                id="bdate-error"
+                                class="error-message"
+                                role="alert"
+                            ></span>
                         </div>
                         <div>
                             <label for="role">Role</label>
-                            <select id="role" name="role">
+                            <select
+                                id="role"
+                                name="role"
+                                aria-describedby="role-error"
+                                aria-invalid="false"
+                                required
+                            >
                                 <button>
                                     <selectedcontent></selectedcontent>
                                 </button>
                                 <option>User</option>
                                 <option>Admin</option>
                             </select>
+                            <span
+                                id="role-error"
+                                class="error-message"
+                                role="alert"
+                            ></span>
                         </div>
                         <div>
-                            <button class="btn--submit" type="submit">
+                            <button
+                                id="registerBtn"
+                                class="btn--submit"
+                                type="submit"
+                            >
                                 Register
                             </button>
                         </div>
@@ -47,5 +115,6 @@
                 </div>
             </div>
         </main>
+        <script type="module" src="./js/register.js"></script>
     </body>
 </html>
