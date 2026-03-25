@@ -14,9 +14,8 @@ loginForm.addEventListener('submit', async (e) => {
 
 loginForm.querySelectorAll('input').forEach((elem) => {
     elem.addEventListener('input', (e) => {
-        e.target.textContent = '';
-        e.target.setAttribute('aria-invalid', false);
         loginValidationMsg.classList.remove('visible');
+        e.target.setAttribute('aria-invalid', false);
     });
 });
 

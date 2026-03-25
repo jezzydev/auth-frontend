@@ -37,9 +37,11 @@ logoutBtn.addEventListener('click', async () => {
         role.textContent = profile.role;
 
         const memberSince = document.getElementById('memberSinceValue');
-        memberSince.textContent = new Date(profile.created_at).toDateString();
+        const date = new Date(profile.created_at);
+        const month = date.toLocaleString('default', { month: 'long' });
+        memberSince.textContent = `${month} ${date.getFullYear()}`;
 
-        //TODO: Bonus: show countdown timer
+        //TODO: Bonus: show token countdown timer
     } catch (error) {
         profileValidationMsg.textContent = error.message;
     }

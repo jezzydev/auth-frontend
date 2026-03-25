@@ -20,8 +20,6 @@ export default {
         'declaration-no-important': true,
 
         // === Formatting ===
-        indentation: 4,
-        'max-empty-lines': 1,
         'color-hex-length': 'long',
 
         // === Flexibility (allow different naming styles) ===

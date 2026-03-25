@@ -65,7 +65,7 @@ option:last-of-type {
 
 option:hover,
 option:focus {
-    background: rgb(224, 241, 246);
+    background: #e0f1f6;
 }
 
 option:checked {
@@ -85,13 +85,18 @@ option:checked {
     text-align: center;
 }
 
-/* LOGIN */
 .validation-msg,
-.error_message {
+.error-message {
     color: red;
-    font-weight: semi-bold;
-    font-size: 0.9em;
+    font-weight: 500;
+    font-size: 0.85em;
+    min-height: 18px;
     visibility: hidden;
+}
+
+.error-message {
+    display: block;
+    margin-top: 4px;
 }
 
 .input.error {
@@ -99,10 +104,11 @@ option:checked {
 }
 
 .validation-msg.visible,
-.error_message.visible {
+.error-message.visible {
     visibility: visible;
 }
 
+/* LOGIN */
 .login__registration-text,
 .register__back-to-login-text {
     text-align: center;
@@ -120,12 +126,19 @@ option:checked {
     padding: 0;
     list-style-type: none;
     display: grid;
-    row-gap: 30px;
+    row-gap: 5px;
+    justify-content: center;
+    text-align: center;
 
     .profile-item__key {
         display: block;
         margin-bottom: 5px;
         font-size: 0.85em;
         opacity: 0.8;
+    }
+
+    .member-since-text {
+        font-size: 0.7em;
+        font-style: italic;
     }
 }

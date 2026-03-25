@@ -8,7 +8,8 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "lint:html": "htmlhint *.html"
+        "lint:html": "htmlhint \"**/*.html\"",
+        "lint:css": "stylelint \"**/*.css\""
     },
     "repository": {
         "type": "git",
