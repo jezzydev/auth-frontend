@@ -23,7 +23,7 @@ async function loginUser(formData) {
     const data = Object.fromEntries(formData.entries());
     try {
         await api.login(data);
-        window.location.replace('../dashboard.html');
+        window.location.replace('./dashboard.html');
         return;
     } catch (error) {
         loginValidationMsg.textContent = error.message;

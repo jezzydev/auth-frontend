@@ -1,5 +1,5 @@
 const authState = {
-    accessTaken: null,
+    accessToken: null,
 };
 
 export const setToken = (token) => {

@@ -20,7 +20,9 @@ export const login = async (data) => {
 
         if (!response.ok) {
             const error = parseErrorMsg(await response.text());
-            throw new Error(`${error.message}`);
+            const err = new Error(`${error.message}`);
+            err.data = error.data;
+            throw err;
         }
 
         const result = await response.json();
@@ -53,12 +55,9 @@ export const register = async (data) => {
 
         if (!response.ok) {
             const error = parseErrorMsg(await response.text());
-
-            if (response.status === 409) {
-                error.message = 'Email already exists.';
-            }
-
-            throw new Error(`${error.message}`);
+            const err = new Error(`${error.message}`);
+            err.data = error.data;
+            throw err;
         }
         return true;
     } catch (error) {
@@ -84,7 +83,9 @@ export const getUserProfile = async () => {
 
         if (!response.ok) {
             const error = parseErrorMsg(await response.text());
-            throw new Error(`${error.message}`);
+            const err = new Error(`${error.message}`);
+            err.data = error.data;
+            throw err;
         }
 
         const result = await response.json();
@@ -128,6 +129,7 @@ export const logout = async () => {
                 headers: {
                     Authorization: `Bearer ${auth.getToken()}`,
                 },
+                credentials: 'include',
             },
         );
 
@@ -135,13 +137,44 @@ export const logout = async () => {
             //if 401 error, continue to logout; otherwise throw the error
             if (response.status !== 401) {
                 const error = parseErrorMsg(await response.text());
-                throw new Error(`${error.message}`);
+                const err = new Error(`${error.message}`);
+                err.data = error.data;
+                throw err;
             }
         }
 
         auth.clearToken();
     } catch (error) {
         throw new Error(`Logout failed. Try again or close your browser.`, {
+            cause: error,
+        });
+    }
+};
+
+export const getUsers = async () => {
+    const PATH = '/api/users';
+
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_BASE_URL}${PATH}`,
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${auth.getToken()}`,
+                },
+            },
+        );
+
+        if (!response.ok) {
+            const error = parseErrorMsg(await response.text());
+            const err = new Error(`${error.message}`);
+            err.data = error.data;
+            throw err;
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(`There was a problem fetching the users data.`, {
             cause: error,
         });
     }

@@ -1,5 +1,4 @@
 import * as api from './api.js';
-import * as auth from './auth.js';
 
 const registerForm = document.querySelector('#registerForm');
 const registerValidationMsg = document.querySelector(
@@ -21,10 +20,6 @@ registerForm.querySelectorAll('input').forEach((elem) => {
     });
 });
 
-registerForm.querySelector('select').addEventListener('change', (e) => {
-    clearInputError(e.target);
-});
-
 function clearInputError(elem) {
     elem.setAttribute('aria-invalid', false);
     const errorMsg = elem.parentNode.querySelector('span.error-message');
@@ -41,7 +36,7 @@ async function registerUser(formData) {
         const success = await api.register(data);
         if (success) {
             window.location.replace(
-                `../login.html?success=${encodeURIComponent(success)}`,
+                `./index.html?success=${encodeURIComponent(success)}`,
             );
             return;
         }
@@ -49,24 +44,22 @@ async function registerUser(formData) {
             'Registration failed. Fix your inputs or try again later',
         );
     } catch (error) {
-        if (error.cause?.message) {
+        console.log(error.cause.data);
+        if (error.cause?.data?.field) {
             const errorMsg = error.cause.message;
-            const errorMsgLowerCase = errorMsg.toLowerCase();
+            const field = error.cause.data.field.toLowerCase();
             let input;
             let inputValidationMsg;
 
-            if (errorMsgLowerCase.includes('password')) {
+            if (field.includes('password')) {
                 input = document.getElementById('password');
                 inputValidationMsg = document.getElementById('password-error');
-            } else if (errorMsgLowerCase.includes('email')) {
+            } else if (field.includes('email')) {
                 input = document.getElementById('email');
                 inputValidationMsg = document.getElementById('email-error');
-            } else if (errorMsgLowerCase.includes('date')) {
+            } else if (field.includes('date')) {
                 input = document.getElementById('bdate');
                 inputValidationMsg = document.getElementById('bdate-error');
-            } else if (errorMsgLowerCase.includes('role')) {
-                input = document.getElementById('role');
-                inputValidationMsg = document.getElementById('role-error');
             }
 
             if (input) {

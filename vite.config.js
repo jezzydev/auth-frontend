@@ -15,5 +15,6 @@ export default defineConfig(({ command, mode }) => {
                 },
             },
         },
+        appType: 'mpa', //spa for single page app (fallback to index.html), mpa for multipage (mimic real static server), custom if not including any html middlewares (eg server-side rendering)
     };
 });

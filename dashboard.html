@@ -25,9 +25,46 @@
                         ></p>
                     </div>
                 </div>
-
-                <div>
-                    <button id="logoutBtn" class="btn--submit" type="button">
+                <div class="token-countdown-container">
+                    <span class="token-expires-text">Token Expires In</span>
+                    <div>
+                        <div class="profile-item__value countdown">
+                            <span
+                                id="tokenExpiresDaysNum"
+                                class="countdown-num"
+                            >
+                            </span>
+                            <span class="countdown-label">days</span>
+                        </div>
+                        <div class="profile-item__value countdown">
+                            <span
+                                id="tokenExpiresHourNum"
+                                class="countdown-num"
+                            >
+                            </span>
+                            <span class="countdown-label">hours</span>
+                        </div>
+                        <div class="profile-item__value countdown">
+                            <span id="tokenExpiresMinNum" class="countdown-num">
+                            </span>
+                            <span class="countdown-label">min</span>
+                        </div>
+                        <div class="profile-item__value countdown">
+                            <span id="tokenExpiresSecNum" class="countdown-num">
+                            </span>
+                            <span class="countdown-label">sec</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a
+                        id="adminPanelBtn"
+                        class="btn btn--submit"
+                        href="./admin.html"
+                    >
+                        Admin Panel
+                    </a>
+                    <button id="logoutBtn" class="btn" type="button">
                         Logout
                     </button>
                 </div>
