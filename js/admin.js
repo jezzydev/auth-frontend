@@ -2,7 +2,7 @@ import * as auth from './auth.js';
 import * as api from './api.js';
 import * as util from './utils.js';
 
-const logoutBtn = document.getElementById('logoutBtn');
+const logoutBtn = document.querySelector('#logout-btn');
 const usersTableBody = document.querySelector('.users-table tbody');
 const usersValidationMsg = document.querySelector(
     '.users-container .validation-msg',
@@ -35,40 +35,6 @@ logoutBtn.addEventListener('click', async () => {
         }
 
         const users = await api.getUsers();
-
-        users.forEach((user) => {
-            const idCol = document.createElement('td');
-            idCol.textContent = user.id;
-
-            const nameCol = document.createElement('td');
-            nameCol.textContent = user.name;
-
-            const emailCol = document.createElement('td');
-            emailCol.textContent = user.email;
-
-            const bdateCol = document.createElement('td');
-            bdateCol.textContent = new Date(user.bdate).toLocaleDateString();
-
-            const roleCol = document.createElement('td');
-            roleCol.textContent = user.role;
-
-            const createdAtCol = document.createElement('td');
-            createdAtCol.textContent = new Date(
-                user.created_at,
-            ).toLocaleDateString();
-
-            const row = document.createElement('tr');
-            row.append(
-                idCol,
-                nameCol,
-                emailCol,
-                bdateCol,
-                roleCol,
-                createdAtCol,
-            );
-
-            usersTableBody.append(row);
-        });
 
         users.forEach((user) => {
             const idCol = document.createElement('td');

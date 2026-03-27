@@ -9,6 +9,19 @@ html {
     line-height: 1.15;
     text-size-adjust: 100%;
     min-height: 100vh;
+
+    /* Colors */
+    --color-lightGray: #d3d3d3;
+    --color-lightGray-50: #cfcdcd;
+    --color-lightGray-100: #efebeb;
+    --color-lightGray-150: #fffdfd;
+    --color-red: #ff0000;
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-purple: #6634fd;
+    --color-purple-50: #825afb;
+    --color-purple-100: #bfabf9;
+    --color-purple-150: #f1ecfd;
 }
 
 body {
@@ -41,7 +54,7 @@ a {
 a:link,
 a:visited,
 a:active {
-    color: black;
+    color: var(--color-black);
 }
 
 b,

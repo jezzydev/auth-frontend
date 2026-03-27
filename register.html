@@ -12,7 +12,7 @@
             <div class="container">
                 <h1 class="title">Registration</h1>
                 <div>
-                    <form id="registerForm">
+                    <form id="register-form" novalidate>
                         <p class="validation-msg"></p>
                         <div class="field-container">
                             <label for="name">Name</label>
@@ -20,6 +20,8 @@
                                 id="name"
                                 name="name"
                                 type="text"
+                                minlength="3"
+                                maxlength="255"
                                 aria-describedby="name-error"
                                 aria-invalid="false"
                                 required
@@ -52,6 +54,8 @@
                                 id="password"
                                 name="password"
                                 type="password"
+                                minlength="8"
+                                maxlength="20"
                                 aria-describedby="password-error"
                                 aria-invalid="false"
                                 required

@@ -1,33 +1,65 @@
 import * as api from './api.js';
+import * as util from './utils.js';
 
-const registerForm = document.querySelector('#registerForm');
+const registerForm = document.querySelector('#register-form');
 const registerValidationMsg = document.querySelector(
-    '#registerForm .validation-msg',
+    '#register-form .validation-msg',
 );
 
 registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    //TODO: do form validation
+    const nameInput = document.getElementById('name');
+    if (!nameInput.checkValidity()) {
+        util.showInputError(
+            nameInput,
+            document.getElementById('name-error'),
+            registerValidationMsg,
+        );
+    }
 
-    const formData = new FormData(e.target);
-    await registerUser(formData);
+    const emailInput = document.getElementById('email');
+    if (!emailInput.checkValidity()) {
+        util.showInputError(
+            emailInput,
+            document.getElementById('email-error'),
+            registerValidationMsg,
+        );
+    }
+
+    const passwordInput = document.getElementById('password');
+    if (!passwordInput.checkValidity()) {
+        util.showInputError(
+            passwordInput,
+            document.getElementById('password-error'),
+            registerValidationMsg,
+        );
+    }
+
+    const bdateInput = document.getElementById('bdate');
+    if (!bdateInput.checkValidity()) {
+        util.showInputError(
+            bdateInput,
+            document.getElementById('bdate-error'),
+            registerValidationMsg,
+        );
+    }
+
+    if (registerForm.checkValidity()) {
+        const formData = new FormData(e.target);
+        await registerUser(formData);
+    }
 });
 
 registerForm.querySelectorAll('input').forEach((elem) => {
     elem.addEventListener('input', (e) => {
-        clearInputError(e.target);
+        util.clearInputError(
+            e.target,
+            e.target.parentNode.querySelector('span.error-message'),
+            registerValidationMsg,
+        );
     });
 });
-
-function clearInputError(elem) {
-    elem.setAttribute('aria-invalid', false);
-    const errorMsg = elem.parentNode.querySelector('span.error-message');
-    errorMsg.textContent = '';
-    errorMsg.classList.remove('visible');
-    registerValidationMsg.textContent = '';
-    registerValidationMsg.classList.remove('visible');
-}
 
 async function registerUser(formData) {
     const data = Object.fromEntries(formData.entries());
@@ -44,7 +76,6 @@ async function registerUser(formData) {
             'Registration failed. Fix your inputs or try again later',
         );
     } catch (error) {
-        console.log(error.cause.data);
         if (error.cause?.data?.field) {
             const errorMsg = error.cause.message;
             const field = error.cause.data.field.toLowerCase();

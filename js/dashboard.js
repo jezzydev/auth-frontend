@@ -2,7 +2,7 @@ import * as auth from './auth.js';
 import * as api from './api.js';
 import * as util from './utils.js';
 
-const logoutBtn = document.getElementById('logoutBtn');
+const logoutBtn = document.querySelector('#logout-btn');
 const profileValidationMsg = document.querySelector('.profile .validation-msg');
 let countdownInterval;
 
@@ -37,7 +37,7 @@ let tokenTimeRemaining;
         const user = util.extractUserData(auth.getToken());
 
         if (user.role === 'admin') {
-            const adminPanelBtn = document.getElementById('adminPanelBtn');
+            const adminPanelBtn = document.querySelector('#admin-panel-btn');
 
             adminPanelBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
@@ -50,16 +50,16 @@ let tokenTimeRemaining;
 
         const profile = await api.getUserProfile();
 
-        const name = document.getElementById('nameValue');
+        const name = document.querySelector('#name-value');
         name.textContent = profile.name;
 
-        const email = document.getElementById('emailValue');
+        const email = document.querySelector('#email-value');
         email.textContent = profile.email;
 
-        const role = document.getElementById('roleValue');
+        const role = document.querySelector('#role-value');
         role.textContent = profile.role;
 
-        const memberSince = document.getElementById('memberSinceValue');
+        const memberSince = document.querySelector('#member-since-value');
         const date = new Date(profile.created_at);
         const month = date.toLocaleString('default', { month: 'long' });
         memberSince.textContent = `${month} ${date.getFullYear()}`;
@@ -93,10 +93,10 @@ let tokenTimeRemaining;
 
 function resetCountdown() {
     return setInterval(() => {
-        const daysValue = document.getElementById('tokenExpiresDaysNum');
-        const hourValue = document.getElementById('tokenExpiresHourNum');
-        const minValue = document.getElementById('tokenExpiresMinNum');
-        const secValue = document.getElementById('tokenExpiresSecNum');
+        const daysValue = document.querySelector('#token-expires-daysNum');
+        const hourValue = document.querySelector('#token-expires-hourNum');
+        const minValue = document.querySelector('#token-expires-minNum');
+        const secValue = document.querySelector('#token-expires-secNum');
 
         const days = Math.trunc(tokenTimeRemaining / msInADay);
         let rem = tokenTimeRemaining - days * msInADay;

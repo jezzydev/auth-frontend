@@ -7,3 +7,18 @@ export const decodeFromBase64 = (encodedString) => {
     const bytes = Uint8Array.fromBase64(encodedString);
     return new TextDecoder().decode(bytes);
 };
+
+export const showInputError = (input, inputError, mainValidation) => {
+    input.setAttribute('aria-invalid', true);
+    inputError.textContent = input.validationMessage;
+    inputError.classList.add('visible');
+    mainValidation.classList.add('visible');
+};
+
+export const clearInputError = (input, inputError, mainValidation) => {
+    input.setAttribute('aria-invalid', false);
+    inputError.textContent = '';
+    inputError.classList.remove('visible');
+    mainValidation.textContent = '';
+    mainValidation.classList.remove('visible');
+};
