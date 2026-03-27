@@ -4,8 +4,10 @@ export const extractUserData = (accessToken) => {
 };
 
 export const decodeFromBase64 = (encodedString) => {
-    const bytes = Uint8Array.fromBase64(encodedString);
-    return new TextDecoder().decode(bytes);
+    const base64 = encodedString.replace(/-/g, '+').replace(/_/g, '/');
+    return atob(base64);
+    // const bytes = Uint8Array.fromBase64(encodedString);
+    // return new TextDecoder().decode(bytes);
 };
 
 export const showInputError = (input, inputError, mainValidation) => {

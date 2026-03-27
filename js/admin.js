@@ -25,6 +25,7 @@ logoutBtn.addEventListener('click', async () => {
 
             if (!refreshed) {
                 window.location.replace('./index.html');
+                return;
             }
         }
 
@@ -32,6 +33,7 @@ logoutBtn.addEventListener('click', async () => {
 
         if (user.role !== 'admin') {
             window.location.replace('./dashboard.html');
+            return;
         }
 
         const users = await api.getUsers();

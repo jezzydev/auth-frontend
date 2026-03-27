@@ -5,6 +5,11 @@ import * as util from './utils.js';
 const logoutBtn = document.querySelector('#logout-btn');
 const profileValidationMsg = document.querySelector('.profile .validation-msg');
 let countdownInterval;
+let tokenTimeRemaining;
+const daysValue = document.querySelector('#token-expires-daysNum');
+const hourValue = document.querySelector('#token-expires-hourNum');
+const minValue = document.querySelector('#token-expires-minNum');
+const secValue = document.querySelector('#token-expires-secNum');
 
 logoutBtn.addEventListener('click', async () => {
     try {
@@ -16,12 +21,6 @@ logoutBtn.addEventListener('click', async () => {
         profileValidationMsg.textContent = error.message;
     }
 });
-
-const msInADay = 86400000;
-const msInAnHour = 3600000;
-const msInAMin = 60000;
-const msInASec = 1000;
-let tokenTimeRemaining;
 
 (async () => {
     try {
@@ -38,13 +37,6 @@ let tokenTimeRemaining;
 
         if (user.role === 'admin') {
             const adminPanelBtn = document.querySelector('#admin-panel-btn');
-
-            adminPanelBtn.addEventListener('click', async (e) => {
-                e.preventDefault();
-                clearInterval(countdownInterval);
-                window.location.assign('./admin.html');
-            });
-
             adminPanelBtn.classList.add('visible');
         }
 
@@ -65,52 +57,43 @@ let tokenTimeRemaining;
         memberSince.textContent = `${month} ${date.getFullYear()}`;
 
         //Token expiry countdown
-        const issuedTimestamp = user.iat * 1000;
-        const expirationTimestamp = user.exp * 1000;
-        tokenTimeRemaining = expirationTimestamp - issuedTimestamp;
+        tokenTimeRemaining = user.exp * 1000 - Date.now();
+        let isRefreshing = false;
 
-        countdownInterval = resetCountdown();
+        countdownInterval = setInterval(async () => {
+            tokenTimeRemaining -= 1000;
+            updateCountdownDisplay();
 
-        const checkCountdown = setInterval(async () => {
-            if (tokenTimeRemaining < msInAMin) {
-                if (tokenTimeRemaining <= 0) {
-                    clearInterval(checkCountdown);
-                }
-
+            if (tokenTimeRemaining <= 60000 && !isRefreshing) {
+                isRefreshing = true;
                 const refreshed = await api.tryRefresh();
+                isRefreshing = false;
 
                 if (refreshed) {
-                    clearInterval(countdownInterval);
-                    tokenTimeRemaining = expirationTimestamp - issuedTimestamp;
-                    countdownInterval = resetCountdown();
+                    const user = util.extractUserData(auth.getToken());
+                    tokenTimeRemaining = user.exp * 1000 - Date.now();
                 }
             }
-        }, 2000);
+
+            if (tokenTimeRemaining <= 0) {
+                clearInterval(countdownInterval);
+                window.location.replace('./index.html');
+            }
+        }, 1000);
     } catch (error) {
         profileValidationMsg.textContent = error.message;
     }
 })();
 
-function resetCountdown() {
-    return setInterval(() => {
-        const daysValue = document.querySelector('#token-expires-daysNum');
-        const hourValue = document.querySelector('#token-expires-hourNum');
-        const minValue = document.querySelector('#token-expires-minNum');
-        const secValue = document.querySelector('#token-expires-secNum');
+function updateCountdownDisplay() {
+    const totalSecs = Math.max(0, Math.floor(tokenTimeRemaining / 1000));
+    const days = Math.floor(totalSecs / 86400);
+    const hours = Math.floor((totalSecs % 86400) / 3600);
+    const min = Math.floor((totalSecs % 3600) / 60);
+    const sec = totalSecs % 60;
 
-        const days = Math.trunc(tokenTimeRemaining / msInADay);
-        let rem = tokenTimeRemaining - days * msInADay;
-        const hours = Math.trunc(rem / msInAnHour);
-        rem = rem - hours * msInAnHour;
-        const min = Math.trunc(rem / msInAMin);
-        rem = rem - min * msInAMin;
-        const sec = Math.trunc(rem / msInASec);
-
-        daysValue.textContent = days;
-        hourValue.textContent = hours;
-        minValue.textContent = min;
-        secValue.textContent = sec;
-
-        tokenTimeRemaining = tokenTimeRemaining - 1000;
-    }, 1000);
+    daysValue.textContent = days;
+    hourValue.textContent = hours;
+    minValue.textContent = min;
+    secValue.textContent = sec;
 }
