@@ -19,7 +19,7 @@ export default defineConfig(({ command, mode }) => {
     );
 
     return {
-        base: mode === 'production' ? '/auth-frontend/' : '/',
+        //base: mode === 'production' ? '/auth-frontend/' : '/', //Configure base if serving on GitHub Pages so that it points to the subdirectory as base
         build: {
             //Without rollupOptions.input, Vite only processes index.html as the entry point and ignores the other pages.
             // This is the standard MPA configuration for Vite — alongside appType: 'mpa'.
